@@ -1,9 +1,16 @@
+import os
+
 from kivy.clock import Clock, mainthread
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager
 from kivy.utils import platform
-from kivy_reloader.app import App
 
+if os.getenv('BABY_LIGHTS_MODE', 'production').strip().lower() == 'development':
+    from kivy_reloader.app import App
+else:
+    from kivy.app import App
+
+from baby_lights.android_utils import refresh_system_bar_insets, system_insets
 from baby_lights.logger import logger
 from baby_lights.navigator import Navigator
 
@@ -207,3 +214,8 @@ class BabyLightsApp(App):
             current_screen.update_status_bar()
         else:
             logger.info(f'No update_status_bar method for {current_screen.name}')
+            if system_insets.bars_visible is True:
+                # A resume can finish after the screen-specific callback. Ask
+                # the shared provider for a fresh measurement without making
+                # every screen or widget implement its own Android call.
+                refresh_system_bar_insets(force=True)
