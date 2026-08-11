@@ -10,7 +10,7 @@ Visual styling is defined in baby_button.kv following Kivy best practices.
 from kivy.animation import Animation
 from kivy.properties import ListProperty, StringProperty
 from kivy.uix.button import Button
-from kivy_reloader.utils import load_kv_path
+from kivy_reloader.lang import load_kv_path
 
 # Load the KV file for styling
 load_kv_path(__file__)
