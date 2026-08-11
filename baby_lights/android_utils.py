@@ -3,6 +3,9 @@ Android system integration utilities.
 Handles immersive mode and screen pinning functionality.
 """
 
+from kivy.clock import Clock
+from kivy.event import EventDispatcher
+from kivy.properties import NumericProperty
 from kivy.utils import platform
 
 try:
@@ -21,6 +24,178 @@ if platform == 'android':
         pass
 
 from baby_lights.logger import logger
+
+
+class SystemInsets(EventDispatcher):
+    """Shared Android safe-area values for every Kivy component."""
+
+    top = NumericProperty(0)
+    bottom = NumericProperty(0)
+
+    # ``None`` means that the Android window has not been measured yet.
+    bars_visible = None
+    request_pending = False
+    request_generation = 0
+    initialized = False
+    last_nonzero_top = 0
+    last_nonzero_bottom = 0
+
+
+system_insets = SystemInsets()
+
+# Showing system bars and receiving their final WindowInsets are separate
+# Android operations.  During a resume/unlock transition Android can briefly
+# return an empty inset, so give the window a few frames to settle before
+# accepting ``0, 0`` as the new value.
+_INSETS_RETRY_DELAYS = (0.05, 0.1, 0.2, 0.4, 0.8)
+
+
+def set_system_bars_visible(visible):
+    """Update the shared inset state when system bars change visibility."""
+    previous_visibility = system_insets.bars_visible
+    if previous_visibility != visible:
+        system_insets.bars_visible = visible
+        system_insets.request_generation += 1
+        system_insets.initialized = False
+        logger.info(
+            'System-bar visibility changed: %s -> %s '
+            '(generation=%s, cached top=%spx, bottom=%spx)',
+            previous_visibility,
+            visible,
+            system_insets.request_generation,
+            system_insets.top,
+            system_insets.bottom,
+        )
+
+    if not visible:
+        # Keep the last measured visible-bar insets.  The shader does not use
+        # them, and retaining them prevents the main screen from jumping into
+        # the navigation bar while Android is restoring the window after an
+        # immersive-mode exit or device unlock.
+        system_insets.request_pending = False
+        logger.debug(
+            'System bars hidden; retaining cached insets '
+            '(top=%spx, bottom=%spx)',
+            system_insets.top,
+            system_insets.bottom,
+        )
+
+
+def refresh_system_bar_insets(force=False, _attempt=0):
+    """Measure Android insets for the current system-bar state.
+
+    The measurement is shared by the whole application. ``force=True`` is
+    used after lifecycle/window transitions, when a previous measurement may
+    still be valid syntactically but stale in practice.
+    """
+    if platform != 'android':
+        system_insets.top = 0
+        system_insets.bottom = 0
+        system_insets.initialized = True
+        return False
+
+    if system_insets.bars_visible is not True:
+        logger.debug('Skipping inset refresh while system bars are hidden')
+        return False
+    if system_insets.request_pending:
+        logger.debug('Inset refresh already pending')
+        return False
+    if system_insets.initialized and not force:
+        logger.debug('Skipping inset refresh; cached values are initialized')
+        return False
+
+    system_insets.request_pending = True
+    generation = system_insets.request_generation
+    logger.info(
+        'Requesting system-bar insets (generation=%s, attempt=%s, force=%s)',
+        generation,
+        _attempt,
+        force,
+    )
+
+    def apply_insets(top, bottom, navigation_visible):
+        # A request from before entering immersive mode (or before the bars
+        # were shown again) must not modify the state of the newer request.
+        if system_insets.request_generation != generation:
+            logger.debug(
+                'Ignoring stale system-bar inset callback '
+                '(generation=%s, current=%s)',
+                generation,
+                system_insets.request_generation,
+            )
+            return
+
+        system_insets.request_pending = False
+        if system_insets.bars_visible is not True:
+            logger.debug('Ignoring inset callback while system bars are hidden')
+            return
+
+        # Right after resume/unlock the decor can report only one of the two
+        # bars while the other one is still being animated in. Do not turn
+        # that transient partial value into the shared layout state.
+        navigation_pending = navigation_visible is not True
+        missing_cached_bar = (
+            top == 0 and system_insets.last_nonzero_top > 0
+        ) or (bottom == 0 and system_insets.last_nonzero_bottom > 0)
+        if (
+            (top == 0 and bottom == 0)
+            or navigation_pending
+            or missing_cached_bar
+        ) and _attempt < len(_INSETS_RETRY_DELAYS):
+            delay = _INSETS_RETRY_DELAYS[_attempt]
+            logger.info(
+                'System-bar insets are not settled yet '
+                '(top=%spx, bottom=%spx, navigation_visible=%s); '
+                'retrying in %.2fs',
+                top,
+                bottom,
+                navigation_visible,
+                delay,
+            )
+            Clock.schedule_once(
+                lambda _dt: refresh_system_bar_insets(
+                    force=True, _attempt=_attempt + 1
+                ),
+                delay,
+            )
+            return
+
+        # If Android still reports a transient zero after all retries, keep
+        # the last known non-zero safe area. Extra padding is safer than
+        # allowing content to be drawn underneath a visible navigation bar.
+        if bottom == 0 and system_insets.last_nonzero_bottom > 0:
+            logger.warning(
+                'Navigation-bar inset did not settle; retaining last known '
+                'bottom inset of %spx',
+                system_insets.last_nonzero_bottom,
+            )
+            bottom = system_insets.last_nonzero_bottom
+        if top == 0 and system_insets.last_nonzero_top > 0:
+            logger.warning(
+                'Status-bar inset did not settle; retaining last known '
+                'top inset of %spx',
+                system_insets.last_nonzero_top,
+            )
+            top = system_insets.last_nonzero_top
+
+        system_insets.top = top
+        system_insets.bottom = bottom
+        if top > 0:
+            system_insets.last_nonzero_top = top
+        if bottom > 0:
+            system_insets.last_nonzero_bottom = bottom
+        system_insets.initialized = True
+        logger.info(
+            'Shared system-bar insets: top=%spx, bottom=%spx '
+            '(generation=%s, attempt=%s)',
+            top,
+            bottom,
+            generation,
+            _attempt,
+        )
+
+    request_system_bar_insets(apply_insets)
+    return True
 
 
 def hide_status_bar_and_extend_content():
@@ -96,6 +271,7 @@ def hide_status_bar_and_extend_content():
             logger.info('Edge-to-edge enabled; status bar area now usable.')
 
         setup_ui()
+        set_system_bars_visible(False)
         return True
     except Exception as e:
         logger.error(f'Failed to enable edge-to-edge: {e}')
@@ -104,11 +280,12 @@ def hide_status_bar_and_extend_content():
 
 def show_status_bar_and_constrain_content():
     """
-    Show the status bar and constrain content to the safe area.
+    Show the status bar and navigation bar.
 
     This does the opposite of hide_status_bar_and_extend_content():
     - Shows status bar and navigation bar
-    - Constrains content to fit between system bars (normal windowed mode)
+    - Keeps the window edge-to-edge on modern Android
+    - Lets the app apply the actual WindowInsets to its content
     - Restores standard Android app behavior
     """
     if platform != 'android':
@@ -150,8 +327,10 @@ def show_status_bar_and_constrain_content():
 
             # 2) Restore normal windowed behavior
             if VERSION.SDK_INT >= 30:
-                # Modern API: Tell system to fit content within system bars
-                window.setDecorFitsSystemWindows(True)
+                # Android 15/API 35 enforces edge-to-edge for apps targeting
+                # API 35+. Keep the window edge-to-edge and apply the actual
+                # system-bar insets to the Kivy layout ourselves.
+                window.setDecorFitsSystemWindows(False)
 
                 # Restore system bar backgrounds (not transparent)
                 window.addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -177,10 +356,6 @@ def show_status_bar_and_constrain_content():
                         WindowInsetsController.BEHAVIOR_DEFAULT
                     )
 
-                # Force window to re-layout by toggling a flag
-                window.clearFlags(LayoutParams.FLAG_LAYOUT_IN_SCREEN)
-                window.addFlags(LayoutParams.FLAG_LAYOUT_IN_SCREEN)
-
             else:
                 # Legacy approach: clear all immersive/fullscreen flags
                 window.addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -191,9 +366,91 @@ def show_status_bar_and_constrain_content():
             logger.info('Status bar shown and content constrained to safe area.')
 
         setup_ui()
+        set_system_bars_visible(True)
+        # Showing the bars after immersive mode or resume requires a fresh
+        # read even when the provider already has initialized values.
+        refresh_system_bar_insets(force=True)
         return True
     except Exception as e:
         logger.error(f'Failed to show status bar and constrain content: {e}')
+        return False
+
+
+def request_system_bar_insets(callback):
+    """Read the visible system-bar insets and return them to Kivy.
+
+    ``WindowInsets`` are reported by Android in physical pixels, which is also
+    the unit used internally by Kivy layouts. The callback is scheduled on the
+    Kivy thread and receives ``(top, bottom, navigation_visible)``. On desktop,
+    or if Android does not expose the insets, the values are zero/``None``.
+
+    The request is asynchronous because Android requires window operations to
+    happen on its UI thread and the insets can change after system bars are
+    shown or hidden.
+    """
+
+    def deliver(top, bottom, navigation_visible=None):
+        Clock.schedule_once(
+            lambda _dt: callback(top, bottom, navigation_visible), 0
+        )
+
+    if platform != 'android':
+        deliver(0, 0, None)
+        return False
+
+    try:
+        PythonActivity = autoclass('org.kivy.android.PythonActivity')
+        VERSION = autoclass('android.os.Build$VERSION')
+        activity = cast('android.app.Activity', PythonActivity.mActivity)
+
+        @run_on_ui_thread
+        def read_insets():
+            try:
+                decor = activity.getWindow().getDecorView()
+                window_insets = decor.getRootWindowInsets()
+
+                if window_insets is None:
+                    logger.warning('Android WindowInsets are not available yet')
+                    deliver(0, 0, None)
+                    return
+
+                if VERSION.SDK_INT >= 30:
+                    WindowInsetsType = autoclass('android.view.WindowInsets$Type')
+                    navigation_bar_type = WindowInsetsType.navigationBars()
+                    inset_types = (
+                        WindowInsetsType.statusBars()
+                        | navigation_bar_type
+                        | WindowInsetsType.displayCutout()
+                    )
+                    insets = window_insets.getInsets(inset_types)
+                    top, bottom = insets.top, insets.bottom
+                    navigation_visible = window_insets.isVisible(
+                        navigation_bar_type
+                    )
+                else:
+                    # On older Android versions the normal windowed mode above
+                    # already applies system-bar insets to the content view.
+                    # Do not add them a second time in the Kivy layout.
+                    top, bottom = 0, 0
+                    navigation_visible = None
+
+                logger.info(
+                    'System-bar insets: top=%spx, bottom=%spx, '
+                    'navigation_visible=%s',
+                    top,
+                    bottom,
+                    navigation_visible,
+                )
+                deliver(top, bottom, navigation_visible)
+            except Exception as e:
+                logger.error(f'Failed to read Android WindowInsets: {e}')
+                deliver(0, 0, None)
+
+        read_insets()
+        return True
+    except Exception as e:
+        logger.error(f'Failed to request Android WindowInsets: {e}')
+        deliver(0, 0, None)
         return False
 
 
