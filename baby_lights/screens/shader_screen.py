@@ -10,7 +10,7 @@ from kivy.app import App
 from kivy.clock import Clock, mainthread
 from kivy.core.window import Window
 from kivy.uix.screenmanager import Screen
-from kivy_reloader.utils import load_kv_path
+from kivy_reloader.lang import load_kv_path
 
 from baby_lights.android_utils import (
     disable_immersive_mode,
