@@ -50,18 +50,48 @@ git clone https://github.com/FilipeMarch/baby-lights
 cd baby-lights
 ```
 
-2. Run the app:
+2. Use Python 3.13 and install the project dependencies:
+```bash
+uv sync
+```
+
+To run the desktop development version with hot reload:
+
 ```bash
 uv run main.py
 ```
 
+The packaged `baby_lights` entry point uses plain Kivy by default. To run the
+desktop launcher with the production app base for a local smoke test:
+
+```bash
+BABY_LIGHTS_MODE=production uv run main.py
+```
+
 ### Building for Android
 
-1. Run **Kivy Reloader**:
+The primary Android build path uses `ksproject`, which generates a native Gradle project and targets Android API 36:
+
 ```bash
-uv run kivy-reloader run
+uv run ksproject android build
 ```
-Select the first option to build the APK and install it on your device.
+
+For a Google Play App Bundle:
+
+```bash
+uv run ksproject android build release --bundle
+```
+
+The output is written to `project_dist/gradle/app/build/outputs/bundle/release/app-release.aab`.
+
+To install and launch the debug build on an emulator or USB device:
+
+```bash
+uv run ksproject android devices
+uv run ksproject android run --uuid DEVICE_SERIAL
+```
+
+`buildozer.spec` is retained as a legacy fallback and is also configured for API 36.
 
 ## Usage
 
@@ -101,7 +131,7 @@ The app uses a modular architecture:
 - **Framework**: Kivy with Python
 - **Graphics**: OpenGL ES shaders for smooth animations
 - **Platform Integration**: PyJnius for Android native API access
-- **Build System**: Buildozer with Python-for-Android
+- **Build System**: ksproject with native Gradle and CPython-for-Android
 
 ### Android Integration
 
@@ -136,7 +166,10 @@ Simple, gentle visual effects:
 ```
 baby-lights/
 ├── main.py                # Entry point
-├── buildozer.spec         # Android build configuration
+├── buildozer.spec         # Legacy Android build configuration
+├── AndroidManifest.tmpl.xml # ksproject manifest template
+├── build.tmpl.gradle.kts  # ksproject Gradle template
+├── wheelhouse/             # Local platform wheel repository
 ├── pyproject.toml         # Python project configuration
 ├── baby_lights/
 │   ├── app.py            # Main application
@@ -157,7 +190,8 @@ baby-lights/
 - **Kivy**: Cross-platform UI framework
 - **PyJnius**: Python-Java bridge for Android
 - **Kivy Reloader**: Hot reload during development
-- **Buildozer**: Android build tool
+- **ksproject**: Native Gradle Android build tool
+- **Buildozer**: Legacy Android build fallback
 
 ### Contributing
 
