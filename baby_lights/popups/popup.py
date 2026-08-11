@@ -6,13 +6,91 @@ Clean Python classes that use KV files for layout.
 from kivy.clock import Clock
 from kivy.properties import StringProperty
 from kivy.uix.popup import Popup
-from kivy_reloader.utils import load_kv_path
+from kivy_reloader.lang import load_kv_path
+
+from baby_lights.android_utils import system_insets
+from baby_lights.logger import logger
 
 # Load the KV file
 load_kv_path(__file__)
 
 
-class ConfirmationPopup(Popup):
+class InsetAwarePopup(Popup):
+    """Popup base class that keeps its title and content out of system bars."""
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._open_event = None
+        self._open_args = None
+        self._open_kwargs = None
+
+    def open(self, *args, **kwargs):
+        """Open only after the shared insets are ready.
+
+        Android reports WindowInsets asynchronously. Waiting before showing
+        the popup prevents its contents from visibly jumping after opening.
+        """
+        if (
+            system_insets.bars_visible is True
+            and not system_insets.initialized
+        ):
+            self._open_args = args
+            self._open_kwargs = kwargs
+            if self._open_event is None:
+                self._open_event = Clock.schedule_interval(
+                    self._open_when_insets_are_ready, 0.01
+                )
+            return self
+
+        self._apply_system_bar_insets(system_insets.top, system_insets.bottom)
+        return super().open(*args, **kwargs)
+
+    def on_open(self):
+        """Apply the already-cached insets after opening."""
+        self._apply_system_bar_insets(system_insets.top, system_insets.bottom)
+
+    def on_dismiss(self):
+        if self._open_event is not None:
+            self._open_event.cancel()
+            self._open_event = None
+
+    def _open_when_insets_are_ready(self, _dt):
+        if not system_insets.initialized:
+            return True
+
+        self._open_event = None
+        args = self._open_args or ()
+        kwargs = self._open_kwargs or {}
+        self._open_args = None
+        self._open_kwargs = None
+        self.open(*args, **kwargs)
+        return False
+
+    def _apply_system_bar_insets(self, top, bottom):
+        """Inset Popup's internal title/content layout, not its overlay."""
+        container = self._container
+        layout = container.parent if container is not None else None
+        if layout is None:
+            logger.warning('Popup layout is not ready for system insets')
+            return
+
+        base_padding = getattr(self, '_base_popup_padding', None)
+        if base_padding is None:
+            base_padding = tuple(layout.padding)
+            self._base_popup_padding = base_padding
+
+        layout.padding = [
+            base_padding[0],
+            base_padding[1] + top,
+            base_padding[2],
+            base_padding[3] + bottom,
+        ]
+        logger.info(
+            'Popup safe padding: top=%spx, bottom=%spx', top, bottom
+        )
+
+
+class ConfirmationPopup(InsetAwarePopup):
     """A popup with title, message, and confirm/cancel buttons."""
 
     message_text = StringProperty('Are you sure?')
@@ -86,7 +164,7 @@ class ConfirmationPopup(Popup):
             cancel_btn.disabled = False
 
 
-class InfoPopup(Popup):
+class InfoPopup(InsetAwarePopup):
     """A simple info popup with just an OK button."""
 
     message_text = StringProperty('Info')
