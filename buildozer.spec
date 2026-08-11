@@ -16,7 +16,7 @@ orientation = portrait
 # Android specific
 fullscreen = 0
 android.permissions = INTERNET, REQUEST_LOCK_TASK
-android.api = 35
+android.api = 36
 android.minapi = 24
 android.accept_sdk_license = True
 android.archs = arm64-v8a
