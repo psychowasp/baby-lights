@@ -1,8 +1,10 @@
 from kivy.app import App
 from kivy.clock import mainthread
 from kivy.core.window import Window
+from kivy.metrics import dp
+from kivy.properties import NumericProperty
 from kivy.uix.screenmanager import Screen
-from kivy_reloader.utils import load_kv_path
+from kivy_reloader.lang import load_kv_path
 
 from baby_lights.android_utils import (
     enable_immersive_mode,
@@ -10,6 +12,7 @@ from baby_lights.android_utils import (
     set_navigation_bar_black,
     set_status_bar_color,
     show_status_bar_and_constrain_content,
+    system_insets,
 )
 from baby_lights.logger import logger
 from baby_lights.popups import show_confirmation_popup, show_info_popup
@@ -20,13 +23,29 @@ load_kv_path(__file__)
 class MainScreen(Screen):
     """Main screen of the Baby Lights app."""
 
+    # These values are physical pixels, matching Kivy's layout units. They
+    # are populated from Android WindowInsets when the screen is entered.
+    system_top_inset = NumericProperty(0)
+    system_bottom_inset = NumericProperty(0)
+
+    # Keep a small visual margin in addition to the unsafe system-bar area.
+    # Unlike the old 40dp padding, the unsafe portion is device-dependent.
+    content_margin = NumericProperty(dp(16))
+
     def on_pre_enter(self):
         """Called when entering this screen."""
         self.update_status_bar()
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        system_insets.bind(
+            top=self._on_system_insets_changed,
+            bottom=self._on_system_insets_changed,
+        )
+        self._on_system_insets_changed()
+
     @mainthread
-    @staticmethod
-    def update_status_bar(*args):
+    def update_status_bar(self, *args):
         try:
             logger.info('Updating status bar for main screen')
 
@@ -44,6 +63,17 @@ class MainScreen(Screen):
 
         except Exception as e:
             logger.error(f'Failed to update status bar: {e}')
+
+    def _on_system_insets_changed(self, *_args):
+        """Mirror the shared safe area into this screen's KV properties."""
+        self.system_top_inset = system_insets.top
+        self.system_bottom_inset = system_insets.bottom
+        logger.info(
+            'Main screen safe padding: top=%spx, bottom=%spx, margin=%spx',
+            self.system_top_inset,
+            self.system_bottom_inset,
+            self.content_margin,
+        )
 
     def show_start_confirmation(self):
         """Show confirmation popup before starting immersive mode."""
