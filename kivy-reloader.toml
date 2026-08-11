@@ -18,12 +18,12 @@ STREAM_USING = "USB"
 
 # Files that trigger a complete app restart when changed
 # Example: ["main.py", "settings.py"] - main app files
-FULL_RELOAD_FILES = ["main.py", 'baby_lights/app.py']
+FULL_RELOAD_FILES = ["baby_lights/__init__.py", "baby_lights/__main__.py", "baby_lights/app.py", "main.py"]
 
 # Folders to watch recursively (any file change triggers reload)
 # Example: ["screens/", "components/"] - your main app folders
 # Use ["."] to watch all files in the current directory
-WATCHED_FOLDERS_RECURSIVELY = ["."]
+WATCHED_FOLDERS_RECURSIVELY = ["baby_lights"]
 
 # Individual files to watch for hot-reload
 # Example: ["utils.py", "letter.txt"] - specific files
@@ -31,7 +31,7 @@ WATCHED_FILES = []
 
 # Folders to watch (first level only, not recursive)
 # Example: ["widgets/"] - for shallow folder monitoring
-WATCHED_FOLDERS = ["."]
+WATCHED_FOLDERS = []
 
 # Patterns to ignore during file watching
 # Built-in exclusions are automatically applied (.git, .buildozer, .venv, *.pyc, __pycache__, etc.)
@@ -56,7 +56,7 @@ SERVICE_FILES = []
 # ════════════════════════════════════════════════════════════════
 
 # Target specific device IPs for deployment/debugging
-# IMPORTANT: 
+# IMPORTANT:
 #   - Empty list [] = Deploy to ALL connected devices (recommended)
 #   - With IPs = Deploy ONLY to specified devices
 #   - Use "127.0.0.1" for Android emulator
@@ -75,7 +75,7 @@ RELOADER_PORT = 8050
 
 # Window position and size (adjust to your screen setup)
 WINDOW_X = -1200                # Horizontal position
-WINDOW_Y = 0                 # Vertical position  
+WINDOW_Y = 0                 # Vertical position
 WINDOW_WIDTH = 420             # Window width
 WINDOW_HEIGHT = 0              # Window height (0 = automatic)
 WINDOW_TITLE = "Kivy Reloader"
@@ -145,17 +145,25 @@ RECORD_FILE_PATH = "session_recording.mp4" # Recording output file
 # Built-in exclusions are automatically applied (.git, .venv, *.pyc, build/, etc.)
 # Add your own patterns here for additional files/folders to exclude
 # Example: ["my_secrets.txt", "local_config/", "*.backup"]
-FOLDERS_AND_FILES_TO_EXCLUDE_FROM_PHONE = []
+FOLDERS_AND_FILES_TO_EXCLUDE_FROM_PHONE = ['project_dist', 'src', 'wheelhouse', '.kivy-reloader', '.java', 'android_post_build.py', 'AndroidManifest.tmpl.xml', 'build.tmpl.gradle.kts']
 
 
-# 📋 Built-in Exclusions: 
+# 📋 Built-in Exclusions:
 # The following patterns are automatically excluded from watching and deployment:
 # .git, .venv, *.pyc, __pycache__, .buildozer, build/, dist/, tests/, docs/,
 # node_modules/, .vscode/, *.log, *.db, buildozer.spec, poetry.lock, and many more.
-# 
+#
 
-# 🔧 Advanced  
+# 🔧 Advanced
 # (NON RECOMMENDED, you should only use DO_NOT_WATCH_PATTERNS and
 # FOLDERS_AND_FILES_TO_EXCLUDE_FROM_PHONE to manage exclusions):
 # To override built-in exclusions, add this to your config:
 # DEFAULT_EXCLUSIONS = [".git", ".venv", "*.pyc"]  # your custom base patterns
+WIN_ADB_PORT = 5037
+DARK_MODE = false
+PERSISTENT_FLIGHTDECK = false
+FLIGHTDECK_ALWAYS_ON_TOP = false
+PRINT_FILE_TREE = false
+SCREEN_SIZE = ""
+SCREEN_DPI = ""
+SHOW_NOTIFICATIONS = true
