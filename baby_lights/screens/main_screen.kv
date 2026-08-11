@@ -12,7 +12,10 @@
     
     BoxLayout:
         orientation: 'vertical'
-        padding: dp(40)
+        # Kivy padding order: left, top, right, bottom. The top and bottom
+        # values include the real Android system-bar insets plus a small
+        # visual margin, so widgets never sit under either system bar.
+        padding: dp(16), root.system_top_inset + root.content_margin, dp(16), root.system_bottom_inset + root.content_margin
         spacing: dp(30)
         
         # Title area
