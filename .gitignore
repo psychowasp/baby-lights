@@ -4,13 +4,26 @@ __pycache__/
 build/
 dist/
 wheels/
-*.egg-info
+*.egg-info/
 
-# Virtual environments
-.venv
-.buildozer
+# Virtual environments and local tooling
+.venv/
+.buildozer/
+.kivyschool/
+project_dist/
+wheelhouse/*.whl
 
 # Kivy Reloader
+.kivy-reloader/
 .kivy_reloader_state.json
+kivy-reloader.toml.bak
+
+# Local secrets and release artifacts
+.env
+*.jks
 baby-lights-release.keystore
-bin
+
+# Build output
+bin/
+wheelhouse/*
+!wheelhouse/.gitkeep
