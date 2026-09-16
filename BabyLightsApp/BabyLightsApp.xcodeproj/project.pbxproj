@@ -1,0 +1,359 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3815AE04928623A43B912BDC /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D010E0D509821F926850C240 /* MainScreen.swift */; };
+		4465BA5284E244B67EEC656F /* Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5173D4C77018669C22DE49 /* Touch.swift */; };
+		983C2F07008D2FC3EBE51625 /* LightsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E897C2F40402D33527C0614E /* LightsScreen.swift */; };
+		9E26ABFFB9B097501201F291 /* BabyLightsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C3123760D27B5D1C7C171 /* BabyLightsApp.swift */; };
+		FD821204E21249F1C2FE0B39 /* NucleantSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D7B7E62476260399BD0DBBC2 /* NucleantSwiftUI */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		148C3123760D27B5D1C7C171 /* BabyLightsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyLightsApp.swift; sourceTree = "<group>"; };
+		18F75C46E81809F071C06111 /* BabyLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B0F48790661734329A0BF42 /* NucleantSwiftUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NucleantSwiftUI; path = ../../NucleantSwiftUI; sourceTree = SOURCE_ROOT; };
+		AF5173D4C77018669C22DE49 /* Touch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Touch.swift; sourceTree = "<group>"; };
+		D010E0D509821F926850C240 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		E897C2F40402D33527C0614E /* LightsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsScreen.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		730052B027AB3DA1F52642DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD821204E21249F1C2FE0B39 /* NucleantSwiftUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		25BDDA05A8DE2A0854452ACF /* BabyLights */ = {
+			isa = PBXGroup;
+			children = (
+				148C3123760D27B5D1C7C171 /* BabyLightsApp.swift */,
+				E897C2F40402D33527C0614E /* LightsScreen.swift */,
+				D010E0D509821F926850C240 /* MainScreen.swift */,
+				AF5173D4C77018669C22DE49 /* Touch.swift */,
+			);
+			name = BabyLights;
+			path = ../BabyLights/Sources/BabyLights;
+			sourceTree = "<group>";
+		};
+		7B1A89A01181A17B8E7A7728 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18F75C46E81809F071C06111 /* BabyLights.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A7023BBB6830D5C0BCF1268E /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				8B0F48790661734329A0BF42 /* NucleantSwiftUI */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		B820EB63923B1A192446D34C = {
+			isa = PBXGroup;
+			children = (
+				25BDDA05A8DE2A0854452ACF /* BabyLights */,
+				A7023BBB6830D5C0BCF1268E /* Packages */,
+				7B1A89A01181A17B8E7A7728 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BF3FAF889D4A49705EF77CC7 /* BabyLightsApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 890F85C443362698E136AA3C /* Build configuration list for PBXNativeTarget "BabyLightsApp" */;
+			buildPhases = (
+				287EF75A11DEC12FBE0E0E5B /* Sources */,
+				730052B027AB3DA1F52642DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BabyLightsApp;
+			packageProductDependencies = (
+				D7B7E62476260399BD0DBBC2 /* NucleantSwiftUI */,
+			);
+			productName = BabyLightsApp;
+			productReference = 18F75C46E81809F071C06111 /* BabyLights.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		213697CA428AF91843633068 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					BF3FAF889D4A49705EF77CC7 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = AD86C14085AB67F40063F9B8 /* Build configuration list for PBXProject "BabyLightsApp" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = B820EB63923B1A192446D34C;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DF06D3823FB2A2514D82793A /* XCLocalSwiftPackageReference "../../NucleantSwiftUI" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 7B1A89A01181A17B8E7A7728 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BF3FAF889D4A49705EF77CC7 /* BabyLightsApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		287EF75A11DEC12FBE0E0E5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E26ABFFB9B097501201F291 /* BabyLightsApp.swift in Sources */,
+				983C2F07008D2FC3EBE51625 /* LightsScreen.swift in Sources */,
+				3815AE04928623A43B912BDC /* MainScreen.swift in Sources */,
+				4465BA5284E244B67EEC656F /* Touch.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A024221BFC057A4E4BFCB25B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U7AZRR7LN3;
+				INFOPLIST_FILE = Support/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kivyschool.babylights;
+				PRODUCT_NAME = BabyLights;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AB10A1CE9E9901E57BF50C1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		C9AA5A14040FC39E8C10995C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U7AZRR7LN3;
+				INFOPLIST_FILE = Support/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kivyschool.babylights;
+				PRODUCT_NAME = BabyLights;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FAEA7FBB21EB2BE3F6B07E92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		890F85C443362698E136AA3C /* Build configuration list for PBXNativeTarget "BabyLightsApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A024221BFC057A4E4BFCB25B /* Debug */,
+				C9AA5A14040FC39E8C10995C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AD86C14085AB67F40063F9B8 /* Build configuration list for PBXProject "BabyLightsApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAEA7FBB21EB2BE3F6B07E92 /* Debug */,
+				AB10A1CE9E9901E57BF50C1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		DF06D3823FB2A2514D82793A /* XCLocalSwiftPackageReference "../../NucleantSwiftUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../NucleantSwiftUI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D7B7E62476260399BD0DBBC2 /* NucleantSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NucleantSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 213697CA428AF91843633068 /* Project object */;
+}

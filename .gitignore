@@ -27,3 +27,8 @@ baby-lights-release.keystore
 bin/
 wheelhouse/*
 !wheelhouse/.gitkeep
+
+# Swift / Xcode
+.build/
+xcuserdata/
+.DS_Store
