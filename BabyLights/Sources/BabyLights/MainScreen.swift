@@ -33,17 +33,14 @@ enum ButtonTheme {
     }
 }
 
-/// A rounded, shadowed button that fires on release inside — the
-/// Calculator example's key, in this app's colours and sizes.
+/// The face of this app's buttons: a rounded, shadowed label. Worn by
+/// `BabyButton`, and by the `NavigationLink` that opens the settings.
 @View
-struct BabyButton {
+struct BabyLabel {
     let title: String
     let theme: ButtonTheme
     let height: Double
     let fontSize: Double
-    let action: () -> Void
-
-    @State private var isPressed = false
 
     var body: some View {
         Text(title)
@@ -56,29 +53,32 @@ struct BabyButton {
                         .fill(Color(white: 0, opacity: 0.1))
                         .offset(x: 2, y: 2)
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(theme.background.opacity(isPressed ? 0.7 : 1))
+                        .fill(theme.background)
                 }
             )
-            .gesture(
-                DragGesture()
-                    .onChanged { _ in isPressed = true }
-                    .onEnded { value in
-                        isPressed = false
-                        if value.bounds.contains(Point(
-                            x: value.bounds.minX + value.location.x,
-                            y: value.bounds.minY + value.location.y
-                        )) {
-                            action()
-                        }
-                    }
-            )
+    }
+}
+
+/// A `Button` in this app's colours and sizes, with the button's own chrome
+/// tinted away.
+@View
+struct BabyButton {
+    let title: String
+    let theme: ButtonTheme
+    let height: Double
+    let fontSize: Double
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            BabyLabel(title: title, theme: theme, height: height, fontSize: fontSize)
+        }
+        .tint(.clear)
     }
 }
 
 @View
 struct MainScreen {
-    let model: AppModel
-
     var body: some View {
         VStack(spacing: 30) {
             Text("Baby Lights")
@@ -91,10 +91,16 @@ struct MainScreen {
                 .multilineTextAlignment(.center)
             VStack(spacing: 20) {
                 BabyButton(title: "START", theme: .baby, height: 80, fontSize: 24) {
-                    model.modal = .startConfirmation
+                    AppModel.shared.modal = .startConfirmation
                 }
                 BabyButton(title: "About", theme: .secondary, height: 36, fontSize: 12) {
-                    model.modal = .about
+                    AppModel.shared.modal = .about
+                }
+                .frame(width: 120)
+                NavigationLink(title: "Settings") {
+                    SettingsScreen()
+                } label: {
+                    BabyLabel(title: "Settings", theme: .secondary, height: 36, fontSize: 12)
                 }
                 .frame(width: 120)
             }
@@ -152,6 +158,7 @@ struct Dialog {
                 }
                 BabyButton(title: "Start", theme: .baby, height: 40, fontSize: 14) {
                     AppModel.shared.modal = nil
+                    touchManager.start()
                     AppModel.shared.screen = .lights
                 }
             case .about:

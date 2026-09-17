@@ -11,12 +11,14 @@
 		4465BA5284E244B67EEC656F /* Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5173D4C77018669C22DE49 /* Touch.swift */; };
 		983C2F07008D2FC3EBE51625 /* LightsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E897C2F40402D33527C0614E /* LightsScreen.swift */; };
 		9E26ABFFB9B097501201F291 /* BabyLightsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C3123760D27B5D1C7C171 /* BabyLightsApp.swift */; };
+		E16388A05B3595400D5D7352 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0FCC75BD069FD70FE1881F /* SettingsScreen.swift */; };
 		FD821204E21249F1C2FE0B39 /* NucleantSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D7B7E62476260399BD0DBBC2 /* NucleantSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		148C3123760D27B5D1C7C171 /* BabyLightsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyLightsApp.swift; sourceTree = "<group>"; };
 		18F75C46E81809F071C06111 /* BabyLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B0FCC75BD069FD70FE1881F /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		8B0F48790661734329A0BF42 /* NucleantSwiftUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NucleantSwiftUI; path = ../../NucleantSwiftUI; sourceTree = SOURCE_ROOT; };
 		AF5173D4C77018669C22DE49 /* Touch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Touch.swift; sourceTree = "<group>"; };
 		D010E0D509821F926850C240 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
@@ -41,6 +43,7 @@
 				148C3123760D27B5D1C7C171 /* BabyLightsApp.swift */,
 				E897C2F40402D33527C0614E /* LightsScreen.swift */,
 				D010E0D509821F926850C240 /* MainScreen.swift */,
+				6B0FCC75BD069FD70FE1881F /* SettingsScreen.swift */,
 				AF5173D4C77018669C22DE49 /* Touch.swift */,
 			);
 			name = BabyLights;
@@ -138,6 +141,7 @@
 				9E26ABFFB9B097501201F291 /* BabyLightsApp.swift in Sources */,
 				983C2F07008D2FC3EBE51625 /* LightsScreen.swift in Sources */,
 				3815AE04928623A43B912BDC /* MainScreen.swift in Sources */,
+				E16388A05B3595400D5D7352 /* SettingsScreen.swift in Sources */,
 				4465BA5284E244B67EEC656F /* Touch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -3,8 +3,8 @@
 //  BabyLights
 //
 //  Baby Lights on NucleantSwiftUI: a black screen that answers a touch
-//  with a soft glow, behind a start screen for the parent. Each glow is
-//  its own stacked `Shader` — see LightsScreen.swift.
+//  with a soft glow, behind a start screen for the parent. All the glows
+//  are one `VertexShader`, an instance each — see LightsScreen.swift.
 //
 
 import NucleantSwiftUI
@@ -64,18 +64,22 @@ final class AppModel {
 
 @View
 struct RootView {
-    let model: AppModel
     @State private var touchManager = TouchManager()
 
     var body: some View {
         ZStack {
-            switch model.screen {
+            switch AppModel.shared.screen {
             case .main:
-                MainScreen(model: model)
+                // The parent's screens live in a stack — settings is pushed
+                // over the start screen and popped with Back. The lights
+                // screen stays outside it: no bar, nothing for a baby to tap.
+                NavigationStack("Baby Lights") {
+                    MainScreen()
+                }
             case .lights:
                 LightsScreen()
             }
-            if let modal = model.modal {
+            if let modal = AppModel.shared.modal {
                 Dialog(modal)
             }
         }
@@ -101,7 +105,7 @@ struct BabyLightsCommands: Commands {
 struct BabyLightsApp: NucleantApp {
     var body: some Scene {
         WindowGroup("Baby Lights", width: 420, height: 800) {
-            RootView(model: AppModel.shared)
+            RootView()
         }
         .commands { BabyLightsCommands() }
     }
