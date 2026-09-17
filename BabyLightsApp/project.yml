@@ -1,5 +1,5 @@
-# Baby Lights as an Xcode app — the same sources the BabyLights package
-# next door builds, here as an iOS (device/simulator) and macOS app.
+# Baby Lights as an Xcode app — the BabyLights package next door, linked
+# as a library, here as an iOS (device/simulator) and macOS app.
 # Regenerate the .xcodeproj after editing this:
 #
 #     cd BabyLightsApp && xcodegen
@@ -26,11 +26,10 @@ options:
     '</plist>'
     > BabyLightsApp.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
 
-# The sibling checkout, as a local package — the same one
-# ../BabyLights/Package.swift depends on.
+# The app is the package; NucleantSwiftUI comes with it.
 packages:
-  NucleantSwiftUI:
-    path: ../../NucleantSwiftUI
+  BabyLights:
+    path: ../BabyLights
 
 settings:
   base:
@@ -43,14 +42,17 @@ targets:
     platform: auto
     supportedDestinations: [iOS, macOS]
     sources:
-      # The package's executable target, unchanged: `@main struct
-      # BabyLightsApp: NucleantApp` is the entry point on both platforms.
-      - path: ../BabyLights/Sources/BabyLights
+      # Just `@main struct BabyLightsApp: NucleantApp` — the package's own
+      # entry file, so the two builds share it too.
+      - path: ../BabyLights/Sources/BabyLightsApp
     dependencies:
-      - package: NucleantSwiftUI
+      - package: BabyLights
+        product: BabyLights
     settings:
       base:
         PRODUCT_NAME: BabyLights
+        # The .app is BabyLights; the module cannot be, that is the library's.
+        PRODUCT_MODULE_NAME: BabyLightsApp
         PRODUCT_BUNDLE_IDENTIFIER: com.kivyschool.babylights
         # Sign to run locally; a real iOS device needs a team — set it under
         # Signing & Capabilities, or here as DEVELOPMENT_TEAM.

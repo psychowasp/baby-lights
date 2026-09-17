@@ -1,10 +1,14 @@
 //
-//  BabyLightsApp.swift
+//  RootView.swift
 //  BabyLights
 //
 //  Baby Lights on NucleantSwiftUI: a black screen that answers a touch
 //  with a soft glow, behind a start screen for the parent. All the glows
 //  are one `VertexShader`, an instance each — see LightsScreen.swift.
+//
+//  This is the library: everything but `@main`, which the package's
+//  `BabyLightsApp` target and the Xcode app each supply in one file, so
+//  both build the same code from here.
 //
 
 import NucleantSwiftUI
@@ -63,10 +67,12 @@ final class AppModel {
 }
 
 @View
-struct RootView {
+public struct RootView {
     @State private var touchManager = TouchManager()
 
-    var body: some View {
+    public init() {}
+
+    public var body: some View {
         ZStack {
             switch AppModel.shared.screen {
             case .main:
@@ -90,23 +96,15 @@ struct RootView {
 
 /// The exit gesture needs two fingers, which a mouse does not have — so on
 /// the desktop the lights screen is also left from the menu bar.
-struct BabyLightsCommands: Commands {
-    var body: some Commands {
+public struct BabyLightsCommands: Commands {
+    public init() {}
+
+    public var body: some Commands {
         CommandMenu("Lights") {
             Button("Exit Baby Lights") {
                 AppModel.shared.modal = nil
                 AppModel.shared.screen = .main
             }
         }
-    }
-}
-
-@main
-struct BabyLightsApp: NucleantApp {
-    var body: some Scene {
-        WindowGroup("Baby Lights", width: 420, height: 800) {
-            RootView()
-        }
-        .commands { BabyLightsCommands() }
     }
 }

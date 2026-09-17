@@ -8,13 +8,25 @@ import PackageDescription
 let package = Package(
     name: "BabyLights",
     platforms: [.macOS(.v14), .iOS(.v17)],
+    products: [
+        // The app as a library — what the Xcode project links.
+        .library(name: "BabyLights", targets: ["BabyLights"]),
+        .executable(name: "BabyLightsApp", targets: ["BabyLightsApp"]),
+    ],
     dependencies: [
         .package(path: "../../NucleantSwiftUI"),
     ],
     targets: [
-        .executableTarget(
+        .target(
             name: "BabyLights",
-            dependencies: [.product(name: "NucleantSwiftUI", package: "NucleantSwiftUI")]
+            dependencies: [.product(name: "NucleantSwiftUI", package: "NucleantSwiftUI")],
+            // The PyShader sources, read through `Bundle.module`.
+            resources: [.process("Resources")]
+        ),
+        // `@main` alone; the Xcode app compiles this same file.
+        .executableTarget(
+            name: "BabyLightsApp",
+            dependencies: ["BabyLights"]
         ),
     ]
 )

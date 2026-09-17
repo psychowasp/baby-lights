@@ -45,12 +45,12 @@ final class TouchManager {
     // MARK: - Settings
 
     /// Glows alive at once; the oldest goes when a new one would exceed it.
-    var maxGlows = 200
+    var maxGlows = 50
     /// How long a glow takes to fade out.
-    var glowSeconds: TimeInterval = 10
+    var glowSeconds: TimeInterval = 5
     /// The least time between two glows from one dragging finger. Zero puts
     /// a glow on every move event.
-    var dragInterval: TimeInterval = 0.025
+    var dragInterval: TimeInterval = 0.100
 
     /// How long both corners must be held before the exit dialog shows.
     nonisolated static let exitHoldSeconds: TimeInterval = 0.5

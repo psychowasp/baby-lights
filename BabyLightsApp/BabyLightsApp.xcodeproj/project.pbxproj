@@ -7,22 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3815AE04928623A43B912BDC /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D010E0D509821F926850C240 /* MainScreen.swift */; };
-		4465BA5284E244B67EEC656F /* Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5173D4C77018669C22DE49 /* Touch.swift */; };
-		983C2F07008D2FC3EBE51625 /* LightsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E897C2F40402D33527C0614E /* LightsScreen.swift */; };
-		9E26ABFFB9B097501201F291 /* BabyLightsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148C3123760D27B5D1C7C171 /* BabyLightsApp.swift */; };
-		E16388A05B3595400D5D7352 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0FCC75BD069FD70FE1881F /* SettingsScreen.swift */; };
-		FD821204E21249F1C2FE0B39 /* NucleantSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D7B7E62476260399BD0DBBC2 /* NucleantSwiftUI */; };
+		D7D9519DE0770DF2627E0E3D /* BabyLightsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF2B75CDF489950497FEBB /* BabyLightsApp.swift */; };
+		FD821204E21249F1C2FE0B39 /* BabyLights in Frameworks */ = {isa = PBXBuildFile; productRef = 7D1DFFA3CF86FFC294D0307A /* BabyLights */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		148C3123760D27B5D1C7C171 /* BabyLightsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyLightsApp.swift; sourceTree = "<group>"; };
 		18F75C46E81809F071C06111 /* BabyLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6B0FCC75BD069FD70FE1881F /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
-		8B0F48790661734329A0BF42 /* NucleantSwiftUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NucleantSwiftUI; path = ../../NucleantSwiftUI; sourceTree = SOURCE_ROOT; };
-		AF5173D4C77018669C22DE49 /* Touch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Touch.swift; sourceTree = "<group>"; };
-		D010E0D509821F926850C240 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
-		E897C2F40402D33527C0614E /* LightsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsScreen.swift; sourceTree = "<group>"; };
+		44706E0B19D255FB068B79F9 /* BabyLights */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BabyLights; path = ../BabyLights; sourceTree = SOURCE_ROOT; };
+		65BF2B75CDF489950497FEBB /* BabyLightsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyLightsApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,24 +22,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD821204E21249F1C2FE0B39 /* NucleantSwiftUI in Frameworks */,
+				FD821204E21249F1C2FE0B39 /* BabyLights in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		25BDDA05A8DE2A0854452ACF /* BabyLights */ = {
+		672962EEC72F3183C3DA61B3 /* BabyLightsApp */ = {
 			isa = PBXGroup;
 			children = (
-				148C3123760D27B5D1C7C171 /* BabyLightsApp.swift */,
-				E897C2F40402D33527C0614E /* LightsScreen.swift */,
-				D010E0D509821F926850C240 /* MainScreen.swift */,
-				6B0FCC75BD069FD70FE1881F /* SettingsScreen.swift */,
-				AF5173D4C77018669C22DE49 /* Touch.swift */,
+				65BF2B75CDF489950497FEBB /* BabyLightsApp.swift */,
 			);
-			name = BabyLights;
-			path = ../BabyLights/Sources/BabyLights;
+			name = BabyLightsApp;
+			path = ../BabyLights/Sources/BabyLightsApp;
 			sourceTree = "<group>";
 		};
 		7B1A89A01181A17B8E7A7728 /* Products */ = {
@@ -61,7 +49,7 @@
 		A7023BBB6830D5C0BCF1268E /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				8B0F48790661734329A0BF42 /* NucleantSwiftUI */,
+				44706E0B19D255FB068B79F9 /* BabyLights */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -69,7 +57,7 @@
 		B820EB63923B1A192446D34C = {
 			isa = PBXGroup;
 			children = (
-				25BDDA05A8DE2A0854452ACF /* BabyLights */,
+				672962EEC72F3183C3DA61B3 /* BabyLightsApp */,
 				A7023BBB6830D5C0BCF1268E /* Packages */,
 				7B1A89A01181A17B8E7A7728 /* Products */,
 			);
@@ -91,7 +79,7 @@
 			);
 			name = BabyLightsApp;
 			packageProductDependencies = (
-				D7B7E62476260399BD0DBBC2 /* NucleantSwiftUI */,
+				7D1DFFA3CF86FFC294D0307A /* BabyLights */,
 			);
 			productName = BabyLightsApp;
 			productReference = 18F75C46E81809F071C06111 /* BabyLights.app */;
@@ -121,7 +109,7 @@
 			mainGroup = B820EB63923B1A192446D34C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				DF06D3823FB2A2514D82793A /* XCLocalSwiftPackageReference "../../NucleantSwiftUI" */,
+				D690EDE3DA4E80C88A53BC45 /* XCLocalSwiftPackageReference "../BabyLights" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7B1A89A01181A17B8E7A7728 /* Products */;
@@ -138,11 +126,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E26ABFFB9B097501201F291 /* BabyLightsApp.swift in Sources */,
-				983C2F07008D2FC3EBE51625 /* LightsScreen.swift in Sources */,
-				3815AE04928623A43B912BDC /* MainScreen.swift in Sources */,
-				E16388A05B3595400D5D7352 /* SettingsScreen.swift in Sources */,
-				4465BA5284E244B67EEC656F /* Touch.swift in Sources */,
+				D7D9519DE0770DF2627E0E3D /* BabyLightsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +147,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kivyschool.babylights;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tests.babylights;
+				PRODUCT_MODULE_NAME = BabyLightsApp;
 				PRODUCT_NAME = BabyLights;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -246,7 +231,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kivyschool.babylights;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tests.babylights;
+				PRODUCT_MODULE_NAME = BabyLightsApp;
 				PRODUCT_NAME = BabyLights;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -346,16 +332,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		DF06D3823FB2A2514D82793A /* XCLocalSwiftPackageReference "../../NucleantSwiftUI" */ = {
+		D690EDE3DA4E80C88A53BC45 /* XCLocalSwiftPackageReference "../BabyLights" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../NucleantSwiftUI;
+			relativePath = ../BabyLights;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D7B7E62476260399BD0DBBC2 /* NucleantSwiftUI */ = {
+		7D1DFFA3CF86FFC294D0307A /* BabyLights */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = NucleantSwiftUI;
+			productName = BabyLights;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
